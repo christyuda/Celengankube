@@ -7,6 +7,7 @@ require("dotenv").config();
 const penggunaRoutes = require("./routes/penggunaRoutes");
 const tabunganRoutes = require("./routes/tabunganRoutes");
 const pengeluaranRoutes = require("./routes/pengeluaranRoutes");
+const authRoutes = require("./routes/authRoutes"); // Import rute login
 
 // Menghubungkan ke MongoDB menggunakan URI koneksi Anda
 mongoose
@@ -28,7 +29,7 @@ app.use(express.json());
 app.use("/api/pengguna", penggunaRoutes);
 app.use("/api/tabungan", tabunganRoutes);
 app.use("/api/pengeluaran", pengeluaranRoutes);
-
+app.use("/api/auth", authRoutes);
 // Rute beranda
 app.get("/", (req, res) => {
   res.send(`
