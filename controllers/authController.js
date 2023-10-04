@@ -1,18 +1,38 @@
 // controller/authController.js
 const Pengguna = require("../models/Users");
 
-// Fungsi untuk melakukan login
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
   const { email, password } = req.body;
 
-  Pengguna.findOne({ email: email, password: password }, (err, user) => {
-    if (err) {
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
+  try {
+    const user = await Pengguna.findOne({ email, password }).exec();
+
     if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({
+        code: 401,
+        success: false,
+        status: "Unauthorized",
+        error: "Unauthorized",
+        message: "Unauthorized",
+      });
     }
+
     // Proses autentikasi berhasil
-    return res.json({ message: "Login successful" });
-  });
+    return res.json({
+      code: 200,
+      success: true,
+      status: "OK",
+      message: "Login successful",
+      data: user,
+    });
+  } catch (error) {
+    console.error("Kesalahan dalam proses login:", error);
+    return res.status(500).json({
+      code: 500,
+      success: false,
+      status: "Internal Server Error",
+      error: "Internal Server Error",
+      message: "Internal Server Error",
+    });
+  }
 };
