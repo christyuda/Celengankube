@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const tabunganController = require("../controllers/tabunganController");
+// const tabunganController = require("../controllers/tabunganController");
 const pengeluaranController = require("../controllers/pengeluaranController");
 
 // Rute untuk mendapatkan semua pengeluaran
@@ -12,9 +12,9 @@ router.post("/tambah", pengeluaranController.tambahTabungan);
 router.get("/:userId", pengeluaranController.getTabungan);
 
 // Rute untuk menghapus catatan tabungan berdasarkan ID
-router.delete("/:tabunganId", pengeluaranController.hapusTabungan);
+router.delete("/:pengeluaranId", pengeluaranController.hapusTabungan);
 
 // Rute untuk memperbarui catatan tabungan berdasarkan ID
-router.put("/:tabunganId", pengeluaranController.perbaruiTabungan);
+router.put("/:pengeluaranId", pengeluaranController.perbaruiTabungan);
 
 module.exports = router;
